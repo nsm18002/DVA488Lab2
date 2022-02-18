@@ -1,0 +1,115 @@
+package Lab2::devices
+
+
+public
+
+with Lab2::icd;
+ 
+--------------------------
+-- vehicle speed sensor --
+--------------------------
+
+device vehicle_speed_sensor
+features
+	vehicle_speed : out data port Lab2::icd::vehicle_speed_variable;
+flows
+	f0 : flow source vehicle_speed;
+	f_adaptive_cruise_control : flow source vehicle_speed;
+properties 
+	Period => 10ms;
+	compute_execution_time => 6 ms .. 8 ms;
+
+end vehicle_speed_sensor;
+
+
+---------------------------
+--     torque sensor     --
+---------------------------
+
+device torque_sensor
+features
+	torque_amount : out data port Lab2::icd::torque_amount_variable;
+flows
+	f0 : flow source torque_amount;
+properties 
+	Period => 10ms;
+	compute_execution_time => 6 ms .. 8 ms;
+
+end torque_sensor; 
+
+--------------------------
+--        radar         --
+--------------------------
+
+device radar_sensor
+features
+	object_distance : out data port Lab2::icd::radar_object_distance_variable;
+flows
+	f0 : flow source object_distance;
+properties 
+	Period => 10ms;
+	compute_execution_time => 6 ms .. 8 ms;
+
+end radar_sensor; 
+
+--------------------------
+--  wheel speed sensor  --
+--------------------------
+
+device wheel_speed_sensor
+features
+	wheel_speed : out data port Lab2::icd::wheel_speed_variable;
+flows
+	f0 : flow source wheel_speed;
+properties 
+	Period => 10ms;
+	compute_execution_time => 6 ms .. 8 ms;
+
+end wheel_speed_sensor; 
+
+
+-----------------------------
+-- steering wheel actuator --
+-----------------------------
+
+device steering_wheel_actuator
+features
+	cmd : in data port Lab2::icd::steering_wheel_cmd;
+flows
+	f0 : flow sink cmd;
+properties
+	Period => 2 ms; 
+
+end steering_wheel_actuator;
+
+
+-----------------------------
+--     brake actuator      --
+-----------------------------
+
+device brake_actuator
+features
+	cmd : in data port Lab2::icd::brake_cmd;
+flows
+	f0 : flow sink cmd;
+properties
+	Period => 2 ms; 
+
+end brake_actuator;
+
+-----------------------------
+--    throttle actuator    --
+-----------------------------
+
+device throttle_actuator
+features
+	cmd : in data port Lab2::icd::throttle_cmd;
+flows
+	f0 : flow sink cmd;
+properties
+	Period => 2 ms; 
+
+end throttle_actuator;
+
+
+end Lab2::devices;
