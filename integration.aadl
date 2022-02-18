@@ -75,7 +75,7 @@ system implementation integration.functional
     				throttle_actuator.f0;
     
     -- anti lock braking flows --
-    wheel_speed_sensor_to_break_actuator : end to end flow wheel_speed_sensor.f0 -> c07 -> anti_lock_braking.f0 -> 
+    wheel_speed_sensor_to_brake_actuator : end to end flow wheel_speed_sensor.f0 -> c07 -> anti_lock_braking.f0 -> 
     				c08 -> brake_actuator.f0;	
 	
 end integration.functional;
