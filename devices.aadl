@@ -22,6 +22,39 @@ properties
 end vehicle_speed_sensor;
 
 
+--------------------
+-- accelerometer -- 
+--------------------
+
+device accelerometer
+features
+	accelerometer_value : out data port Lab2::icd::accelerometer_variable;
+flows
+	f0 : flow source accelerometer_value;
+	accelerometer_flow : flow source accelerometer_value;
+properties 
+	Period => 10ms;
+	compute_execution_time => 6 ms .. 8 ms;
+
+end accelerometer;
+
+
+------------------
+-- airbag -- 
+-------------------
+
+device airbag
+features
+	cmd : in data port Lab2::icd::airbag_command;
+flows
+	f0 : flow sink cmd;
+properties
+	Period => 2 ms; 
+
+end airbag;
+
+
+
 ---------------------------
 --     torque sensor     --
 ---------------------------
