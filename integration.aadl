@@ -8,6 +8,7 @@ with Lab2::devices;
 with Lab2::Software::power_steering;
 with Lab2::Software::adaptive_cruise_control;
 with Lab2::Software::anti_lock_braking;
+with Lab2::Software::car_alarm;
 with Lab2::platform;
 
 	
@@ -22,18 +23,24 @@ system implementation integration.functional
 	vehicle_speed_sensor       	: device Lab2::devices::vehicle_speed_sensor;
 	radar_sensor				: device Lab2::devices::radar_sensor;
 	wheel_speed_sensor			: device Lab2::devices::wheel_speed_sensor;
+	door_sensor					: device Lab2::devices::door_sensor;
+	shock_sensor				: device Lab2::devices::shock_sensor;
+	window_sensor				: device Lab2::devices::window_sensor;
+	motion_sensor				: device Lab2::devices::motion_sensor;
 
 
 	-- functions
     power_steering  			: process Lab2::software::power_steering::power_steering.i;
     adaptive_cruise_control  	: process Lab2::software::adaptive_cruise_control::adaptive_cruise_control.i;
     anti_lock_braking		  	: process Lab2::software::anti_lock_braking::anti_lock_braking.i;
+    car_alarm		  			: process Lab2::software::car_alarm::car_alarm.i;
     
 
 	-- output devices
 	steering_wheel_actuator     : device Lab2::devices::steering_wheel_actuator;
 	brake_actuator     			: device Lab2::devices::brake_actuator;
 	throttle_actuator     		: device Lab2::devices::throttle_actuator;
+	car_siren     				: device Lab2::devices::car_siren;
 
 
 	connections
@@ -43,7 +50,7 @@ system implementation integration.functional
     c02 : port power_steering.steering_wheel_cmd         -> steering_wheel_actuator.cmd;
     
     -- adaptive cruise control connections --
-    c03 : port radar_sensor.obstacle_distance		 	 -> adaptive_cruise_control.radar_obstacle_distance;
+    c03 : port radar_sensor.object_distance		 		 -> adaptive_cruise_control.radar_object_distance;
     c04 : port vehicle_speed_sensor.vehicle_speed		 -> adaptive_cruise_control.vehicle_speed;
     c05 : port adaptive_cruise_control.brake_cmd         -> brake_actuator.cmd;
     c06 : port adaptive_cruise_control.throttle_cmd      -> throttle_actuator.cmd;
@@ -51,7 +58,13 @@ system implementation integration.functional
     -- anti lock breaking connections --
     c07 : port wheel_speed_sensor.wheel_speed            -> anti_lock_braking.wheel_speed;
     c08 : port anti_lock_braking.brake_cmd         		 -> brake_actuator.cmd;
-
+    
+    -- car alarm connections --
+    c09 : port door_sensor.door_distance				-> car_alarm.door_sensor;
+    c10 : port shock_sensor.shock_distance				-> car_alarm.shock_sensor;
+    c11 : port window_sensor.window_distance			-> car_alarm.window_sensor;
+    c12 : port motion_sensor.motion_distance			-> car_alarm.motion_sensor;
+    c13 : port car_alarm.car_siren     				    -> car_siren.cmd;
 
 	flows
 	-- power steering flows --
@@ -77,6 +90,16 @@ system implementation integration.functional
     -- anti lock braking flows --
     wheel_speed_sensor_to_brake_actuator : end to end flow wheel_speed_sensor.f0 -> c07 -> anti_lock_braking.f0 -> 
     				c08 -> brake_actuator.f0;	
+    				
+    -- car_alarm flows --
+    door_sensor_to_car_siren: end to end flow door_sensor.f0 -> c09 -> car_alarm.f1 -> c13 -> 
+    				car_siren.f0;
+    shock_sensor_to_car_siren: end to end flow shock_sensor.f0 -> c10 -> car_alarm.f1 -> c13 -> 
+    				car_siren.f0;
+   	window_sensor_to_car_siren: end to end flow window_sensor.f0 -> c11 -> car_alarm.f1 -> c13 -> 
+    				car_siren.f0;
+   	motion_sensor_to_car_siren: end to end flow motion_sensor.f0 -> c12 -> car_alarm.f1 -> c13 -> 
+    				car_siren.f0; 				
 	
 end integration.functional;
 
