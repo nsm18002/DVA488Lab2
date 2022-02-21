@@ -53,6 +53,80 @@ properties
 
 end airbag;
 
+--------------------------
+--        door sensor         --
+--------------------------
+
+device door_sensor
+features
+	door_distance : out data port Lab2::icd::door_sensor_variable;
+flows
+	f0 : flow source door_distance;
+properties 
+	Period => 10ms;
+	compute_execution_time => 6 ms .. 8 ms;
+
+end door_sensor; 
+
+--------------------------
+--        shock sensor         --
+-------------------------
+
+device shock_sensor
+features
+	shock_distance : out data port Lab2::icd::shock_sensor_variable;
+flows
+	f0 : flow source shock_distance;
+properties 
+	Period => 10 ms;
+	compute_execution_time => 6 ms .. 8 ms;
+
+end shock_sensor; 
+
+
+--------------------------
+--        window sensor         --
+--------------------------
+device window_sensor
+features
+	window_distance : out data port Lab2::icd::window_sensor_variable;
+flows
+	f0 : flow source window_distance;
+properties 
+	Period => 10 ms;
+	compute_execution_time => 6 ms .. 8 ms;
+
+end window_sensor; 
+
+
+--------------------------
+--        motion sensor         --
+--------------------------
+device motion_sensor
+features
+	motion_distance : out data port Lab2::icd::motion_sensor_variable;
+flows
+	f0 : flow source motion_distance;
+properties 
+	Period => 10 ms;
+	compute_execution_time => 6 ms .. 8 ms;
+
+end motion_sensor; 
+
+
+-----------------------------
+--     car siren      --
+-----------------------------
+
+device car_siren
+features
+	cmd : in data port Lab2::icd::car_siren_cmd;
+flows
+	f0 : flow sink cmd;
+properties
+	Period => 2 ms; 
+
+end car_siren;
 
 
 ---------------------------
@@ -76,9 +150,9 @@ end torque_sensor;
 
 device radar_sensor
 features
-	obstacle_distance : out data port Lab2::icd::obstacle_position.i;
+	object_distance : out data port Lab2::icd::radar_object_distance_variable;
 flows
-	f0 : flow source obstacle_distance;
+	f0 : flow source object_distance;
 properties 
 	Period => 10ms;
 	compute_execution_time => 6 ms .. 8 ms;
