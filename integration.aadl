@@ -43,7 +43,7 @@ system implementation integration.functional
     c02 : port power_steering.steering_wheel_cmd         -> steering_wheel_actuator.cmd;
     
     -- adaptive cruise control connections --
-    c03 : port radar_sensor.object_distance		 		 -> adaptive_cruise_control.radar_object_distance;
+    c03 : port radar_sensor.obstacle_distance		 	 -> adaptive_cruise_control.radar_obstacle_distance;
     c04 : port vehicle_speed_sensor.vehicle_speed		 -> adaptive_cruise_control.vehicle_speed;
     c05 : port adaptive_cruise_control.brake_cmd         -> brake_actuator.cmd;
     c06 : port adaptive_cruise_control.throttle_cmd      -> throttle_actuator.cmd;
