@@ -76,9 +76,9 @@ end torque_sensor;
 
 device radar_sensor
 features
-	object_distance : out data port Lab2::icd::radar_object_distance_variable;
+	obstacle_distance : out data port Lab2::icd::obstacle_position.i;
 flows
-	f0 : flow source object_distance;
+	f0 : flow source obstacle_distance;
 properties 
 	Period => 10ms;
 	compute_execution_time => 6 ms .. 8 ms;
