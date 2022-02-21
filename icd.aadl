@@ -16,20 +16,26 @@ end vehicle_speed_variable;
 data torque_amount_variable extends base_types::unsigned_16
 end torque_amount_variable;
 
-data obstacle_position
-end obstacle_position;
-
-data implementation obstacle_position.i
-subcomponents
-  present : data base_types::boolean;
-  x       : data base_types::Unsigned_8;
-end obstacle_position.i;
+data radar_object_distance_variable extends base_types::unsigned_16
+end radar_object_distance_variable;
 
 data wheel_speed_variable extends base_types::unsigned_16
 end wheel_speed_variable;
 
 data accelerometer_variable extends base_types::unsigned_16
 end accelerometer_variable;
+
+data door_sensor_variable extends base_types::unsigned_16
+end door_sensor_variable;
+
+data shock_sensor_variable extends base_types::unsigned_16
+end shock_sensor_variable;
+
+data window_sensor_variable extends base_types::unsigned_16
+end window_sensor_variable;
+
+data motion_sensor_variable extends base_types::unsigned_16
+end motion_sensor_variable;
 
 -------------------- Commands -------------------- // Sent by the functions and received by the actuators
 
@@ -44,6 +50,9 @@ end throttle_cmd;
 
 data airbag_command extends Base_Types::Integer_8
 end airbag_command;
+
+data car_siren_cmd extends Base_Types::Integer_8
+end car_siren_cmd;
 
 
 end Lab2::icd;
