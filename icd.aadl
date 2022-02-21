@@ -30,8 +30,10 @@ end steering_wheel_cmd;
 data brake_cmd extends Base_Types::Integer_8
 end brake_cmd;
 
-data throttle_cmd extends Base_Types::Integer_8
-end throttle_cmd;
+data throttle_cmd_updated extends Base_Types::Integer_8
+end throttle_cmd_updated;
 
+data another_cmd extends Base_Types::Integer_8
+end another_cmd;
 
 end Lab2::icd;
