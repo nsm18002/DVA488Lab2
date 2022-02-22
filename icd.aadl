@@ -37,6 +37,9 @@ end window_sensor_variable;
 data motion_sensor_variable extends base_types::unsigned_16
 end motion_sensor_variable;
 
+data ultrasonic_distance_variable extends base_types::unsigned_16
+end ultrasonic_distance_variable;
+
 -------------------- Commands -------------------- // Sent by the functions and received by the actuators
 
 data steering_wheel_cmd extends Base_Types::Integer_8
@@ -53,6 +56,9 @@ end airbag_command;
 
 data car_siren_cmd extends Base_Types::Integer_8
 end car_siren_cmd;
+
+data speaker_cmd extends Base_Types::Integer_8
+end speaker_cmd;
 
 
 end Lab2::icd;
