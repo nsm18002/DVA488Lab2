@@ -9,6 +9,7 @@ with Lab2::Software::power_steering;
 with Lab2::Software::adaptive_cruise_control;
 with Lab2::Software::anti_lock_braking;
 with Lab2::Software::car_alarm;
+with Lab2::Software::parking_assistance;
 with Lab2::platform;
 
 	
@@ -27,6 +28,7 @@ system implementation integration.functional
 	shock_sensor				: device Lab2::devices::shock_sensor;
 	window_sensor				: device Lab2::devices::window_sensor;
 	motion_sensor				: device Lab2::devices::motion_sensor;
+	ultrasonic_sensor			: device Lab2::devices::ultrasonic_sensor;
 
 
 	-- functions
@@ -34,6 +36,7 @@ system implementation integration.functional
     adaptive_cruise_control  	: process Lab2::software::adaptive_cruise_control::adaptive_cruise_control.i;
     anti_lock_braking		  	: process Lab2::software::anti_lock_braking::anti_lock_braking.i;
     car_alarm		  			: process Lab2::software::car_alarm::car_alarm.i;
+    parking_assistance 			: process Lab2::software::parking_assistance::parking_assistance.i;
     
 
 	-- output devices
@@ -41,6 +44,7 @@ system implementation integration.functional
 	brake_actuator     			: device Lab2::devices::brake_actuator;
 	throttle_actuator     		: device Lab2::devices::throttle_actuator;
 	car_siren     				: device Lab2::devices::car_siren;
+	speaker_actuator     		: device Lab2::devices::speaker_actuator;
 
 
 	connections
@@ -65,6 +69,11 @@ system implementation integration.functional
     c11 : port window_sensor.window_distance			-> car_alarm.window_sensor;
     c12 : port motion_sensor.motion_distance			-> car_alarm.motion_sensor;
     c13 : port car_alarm.car_siren     				    -> car_siren.cmd;
+    
+     -- parking assistance connections --
+    c14 : port ultrasonic_sensor.ultrasonic_distance	 -> parking_assistance.ultrasonic_sensor;
+    c15 : port parking_assistance.brake_cmd        		 -> brake_actuator.cmd;
+    c16 : port parking_assistance.speaker_cmd    		 -> speaker_actuator.cmd;
 
 	flows
 	-- power steering flows --
@@ -99,10 +108,16 @@ system implementation integration.functional
    	window_sensor_to_car_siren: end to end flow window_sensor.f0 -> c11 -> car_alarm.f1 -> c13 -> 
     				car_siren.f0;
    	motion_sensor_to_car_siren: end to end flow motion_sensor.f0 -> c12 -> car_alarm.f1 -> c13 -> 
-    				car_siren.f0; 				
+    				car_siren.f0; 	
+    				
+    -- parking assistance flows --
+   ultrasonic_sensor_to_brake_actuator: end to end flow ultrasonic_sensor.f0 -> c14 -> parking_assistance.f1 -> c15 -> 
+    				brake_actuator.f0;
+    				
+   ultrasonic_sensor_to_speaker_actuator: end to end flow ultrasonic_sensor.f0 -> c14 -> parking_assistance.f1 -> c16 -> 
+    				speaker_actuator.f0;		
 	
 end integration.functional;
-
 
 system implementation integration.variation1 extends integration.functional
 subcomponents
