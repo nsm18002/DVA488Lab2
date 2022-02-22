@@ -128,6 +128,35 @@ properties
 
 end car_siren;
 
+--------------------------------------
+--        ultrasonic sensor         --
+--------------------------------------
+
+device ultrasonic_sensor
+features
+	ultrasonic_distance : out data port Lab2::icd::ultrasonic_distance_variable;
+flows
+	f0 : flow source ultrasonic_distance;
+properties 
+	Period => 10ms;
+	compute_execution_time => 6 ms .. 8 ms;
+
+end ultrasonic_sensor; 
+
+-----------------------------
+--     speaker      --
+-----------------------------
+
+device speaker_actuator
+features
+	cmd : in data port Lab2::icd::speaker_cmd;
+flows
+	f0 : flow sink cmd;
+properties
+	Period => 2 ms; 
+
+end speaker_actuator;
+
 
 ---------------------------
 --     torque sensor     --
