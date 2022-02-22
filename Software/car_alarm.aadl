@@ -2,7 +2,7 @@ package Lab2::Software::car_alarm
 
 public
 
-with Lab2::icd; --<-- Access to custom variables: radar_distance_variable, brake_cmd
+with Lab2::icd; --<-- Access to custom variables: door_sensor_variable_variable, shock_sensor_variable, window_sensor_variable, motion_sensor_variable, car_siren__cmd
 
 process car_alarm
 	features
