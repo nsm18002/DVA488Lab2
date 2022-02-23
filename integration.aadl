@@ -149,11 +149,19 @@ subcomponents
 connections
 	b00 : bus access can1 <-> cpu.socket1;
 	b01 : bus access can2 <-> cpu.socket2;
-properties
+	properties
+		
+	-- All software functions run on the 1 CPU --
 	actual_processor_binding => (reference (cpu)) applies to
-			power_steering;
+			power_steering, anti_lock_braking, adaptive_cruise_control;
+			
+	-- All connections from Sensors to Software goes through can bus 1 --
 	actual_connection_binding => (reference (can1)) applies to
-			c00, c01, c02;
+			c00, c01, c03, c04, c07;
+			
+	-- All connections from Software to Actuators goes through can bus 2 --
+	actual_connection_binding => (reference (can2)) applies to
+			c02, c05, c06, c08;
 
 end integration.variation2;
 
