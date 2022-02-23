@@ -16,8 +16,14 @@ end vehicle_speed_variable;
 data torque_amount_variable extends base_types::unsigned_16
 end torque_amount_variable;
 
-data radar_object_distance_variable extends base_types::unsigned_16
-end radar_object_distance_variable;
+data obstacle_position
+end obstacle_position;
+
+data implementation obstacle_position.i
+subcomponents
+  present : data base_types::boolean;
+  x       : data base_types::Unsigned_8;
+end obstacle_position.i;
 
 data wheel_speed_variable extends base_types::unsigned_16
 end wheel_speed_variable;
