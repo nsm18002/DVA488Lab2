@@ -21,7 +21,7 @@ connections
 	c1 : port crash_thr.airbag_command  		-> airbag_command;
 flows	
 	f0 : flow path accelerometer_variable  -> c0 -> crash_thr.f0 -> c1 -> airbag_command;
-end crash.i;
+end crash_evaluation.i;
 
 
 thread crash_thread
