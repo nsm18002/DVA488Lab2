@@ -26,7 +26,7 @@ end crash.i;
 
 thread crash_thread
 features
-	accelerometer_variable     	: in data port Lab2::icd::accelerometer_variable;
+	accelerometer_variable     		: in data port Lab2::icd::accelerometer_variable;
 	airbag_command					: out data port Lab2::icd::airbag_command;
 flows
 	f0 : flow path accelerometer_variable -> airbag_command;
@@ -36,4 +36,4 @@ properties
 end crash_thread;
 
 
-end Lab2::Software::crash_braking;
+end Lab2::Software::crash_evaluation;

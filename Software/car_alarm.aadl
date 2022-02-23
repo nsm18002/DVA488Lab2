@@ -30,10 +30,10 @@ connections
 	c3 : port motion_sensor  							-> car_alarm_thr.motion_sensor_variable;
 	c4 : port car_alarm_thr.car_siren_cmd   			-> car_siren;
 flows	
-	f0 : flow path door_sensor  -> c0 -> car_alarm_thr.f0 -> c2 -> car_siren;
-	f1 : flow path shock_sensor  -> c1 -> car_alarm_thr.f1 -> c2 -> car_siren;
-	f2 : flow path window_sensor  -> c0 -> car_alarm_thr.f2 -> c3 -> car_siren;
-	f3 : flow path motion_sensor  -> c1 -> car_alarm_thr.f3 -> c3 -> car_siren;
+	f0 : flow path door_sensor  -> c0 -> car_alarm_thr.f0 -> c4 -> car_siren;
+	f1 : flow path shock_sensor  -> c1 -> car_alarm_thr.f1 -> c4 -> car_siren;
+	f2 : flow path window_sensor  -> c2 -> car_alarm_thr.f2 -> c4 -> car_siren;
+	f3 : flow path motion_sensor  -> c3 -> car_alarm_thr.f3 -> c4 -> car_siren;
 end car_alarm.i;
 
 
@@ -46,13 +46,13 @@ features
 	car_siren_cmd 						: out data port Lab2::icd::car_siren_cmd;
 flows
 	f0 : flow path door_sensor_variable 			-> car_siren_cmd;
-	f1 : flow path shock_sensor_variable		 	-> car_siren_cmd
-	f2 : flow path window_sensor_variable 			-> car_siren_cmd
-	f3 : flow path motion_sensor_variable		 	-> car_siren_cmd
+	f1 : flow path shock_sensor_variable		 	-> car_siren_cmd;
+	f2 : flow path window_sensor_variable 			-> car_siren_cmd;
+	f3 : flow path motion_sensor_variable		 	-> car_siren_cmd;
 properties
 	Dispatch_Protocol => Periodic;
 	Period            => 5ms;
-end car_alarm_thread;
+end car_siren_thread;
 
 
 end Lab2::Software::car_alarm;

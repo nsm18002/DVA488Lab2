@@ -71,7 +71,7 @@ system implementation integration.functional
     c13 : port car_alarm.car_siren     				    -> car_siren.cmd;
     
      -- parking assistance connections --
-    c14 : port ultrasonic_sensor.ultrasonic_distance	 -> parking_assistance.ultrasonic_sensor;
+    c14 : port ultrasonic_sensor.ultrasonic_distance	 -> parking_assistance.ultrasonic_distance;
     c15 : port parking_assistance.brake_cmd        		 -> brake_actuator.cmd;
     c16 : port parking_assistance.speaker_cmd    		 -> speaker_actuator.cmd;
 
@@ -101,17 +101,17 @@ system implementation integration.functional
     				c08 -> brake_actuator.f0;	
     				
     -- car_alarm flows --
-    door_sensor_to_car_siren: end to end flow door_sensor.f0 -> c09 -> car_alarm.f1 -> c13 -> 
+    door_sensor_to_car_siren: end to end flow door_sensor.f0 -> c09 -> car_alarm.f0 -> c13 -> 
     				car_siren.f0;
     shock_sensor_to_car_siren: end to end flow shock_sensor.f0 -> c10 -> car_alarm.f1 -> c13 -> 
     				car_siren.f0;
-   	window_sensor_to_car_siren: end to end flow window_sensor.f0 -> c11 -> car_alarm.f1 -> c13 -> 
+   	window_sensor_to_car_siren: end to end flow window_sensor.f0 -> c11 -> car_alarm.f2 -> c13 -> 
     				car_siren.f0;
-   	motion_sensor_to_car_siren: end to end flow motion_sensor.f0 -> c12 -> car_alarm.f1 -> c13 -> 
+   	motion_sensor_to_car_siren: end to end flow motion_sensor.f0 -> c12 -> car_alarm.f3 -> c13 -> 
     				car_siren.f0; 	
     				
     -- parking assistance flows --
-   ultrasonic_sensor_to_brake_actuator: end to end flow ultrasonic_sensor.f0 -> c14 -> parking_assistance.f1 -> c15 -> 
+   ultrasonic_sensor_to_brake_actuator: end to end flow ultrasonic_sensor.f0 -> c14 -> parking_assistance.f0 -> c15 -> 
     				brake_actuator.f0;
     				
    ultrasonic_sensor_to_speaker_actuator: end to end flow ultrasonic_sensor.f0 -> c14 -> parking_assistance.f1 -> c16 -> 
