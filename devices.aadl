@@ -247,5 +247,16 @@ properties
 
 end throttle_actuator;
 
+----------------------------
+--         camera         --
+----------------------------
+
+device camera
+features
+	lane_position : out data port Lab2::icd::lane_position;
+flows
+	f0 : flow source lane_position;
+end camera;
+
 
 end Lab2::devices;
