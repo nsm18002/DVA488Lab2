@@ -46,6 +46,21 @@ end motion_sensor_variable;
 data ultrasonic_distance_variable extends base_types::unsigned_16
 end ultrasonic_distance_variable;
 
+data picture 
+properties
+	data_size => 600 KByte;
+	data_model::data_representation => array;
+end picture;
+
+data lane_position
+end lane_position;
+
+data implementation lane_position.i
+subcomponents
+  present : data base_types::boolean;
+  x       : data Base_Types::Unsigned_8;
+end lane_position.i;
+
 -------------------- Commands -------------------- // Sent by the functions and received by the actuators
 
 data steering_wheel_cmd extends Base_Types::Integer_8
