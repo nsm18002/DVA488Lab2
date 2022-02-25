@@ -10,6 +10,8 @@ with Lab2::Software::adaptive_cruise_control;
 with Lab2::Software::anti_lock_braking;
 with Lab2::Software::car_alarm;
 with Lab2::Software::parking_assistance;
+with Lab2::software::lane_detection;
+with Lab2::software::collision_avoidance; --ADD this to github
 with Lab2::platform;
 
 	
@@ -29,6 +31,7 @@ system implementation integration.functional
 	window_sensor				: device Lab2::devices::window_sensor;
 	motion_sensor				: device Lab2::devices::motion_sensor;
 	ultrasonic_sensor			: device Lab2::devices::ultrasonic_sensor;
+	camera	                                : device Lab2::devices::camera;
 
 
 	-- functions
@@ -37,6 +40,9 @@ system implementation integration.functional
     anti_lock_braking		  	: process Lab2::software::anti_lock_braking::anti_lock_braking.i;
     car_alarm		  			: process Lab2::software::car_alarm::car_alarm.i;
     parking_assistance 			: process Lab2::software::parking_assistance::parking_assistance.i;
+     lane_detection		  	    : process Lab2::software::lane_detection::lane_detection.i;
+    collision_avoidance         : process Lab2::software::collision_avoidance::collision_avoidance.i; 
+
     
 
 	-- output devices
@@ -74,6 +80,18 @@ system implementation integration.functional
     c14 : port ultrasonic_sensor.ultrasonic_distance	 -> parking_assistance.ultrasonic_distance;
     c15 : port parking_assistance.brake_cmd        		 -> brake_actuator.cmd;
     c16 : port parking_assistance.speaker_cmd    		 -> speaker_actuator.cmd;
+    
+    -- lane keep assistance ----------
+    
+    c17 : port camera.lane_position                            -> lane_detection.camera;
+    c18 : port lane_detection.steering_wheel_cmd               -> steering_wheel_actuator.cmd;
+    
+    ------ collision avoidance -------
+    c19 : port radar_sensor.object_distance		       -> collision_avoidance.radar_object_distance;
+    c20 : port collision_avoidance.steering_wheel_cmd          -> steering_wheel_actuator.cmd;
+    c21 : port collision_avoidance.brake_cmd                   -> brake_actuator.cmd;
+    c22 : port collision_avoidance.speaker_cmd                 -> speaker.cmd;
+
 
 	flows
 	-- power steering flows --
@@ -115,7 +133,20 @@ system implementation integration.functional
     				brake_actuator.f0;
     				
    ultrasonic_sensor_to_speaker_actuator: end to end flow ultrasonic_sensor.f0 -> c14 -> parking_assistance.f1 -> c16 -> 
-    				speaker_actuator.f0;		
+    				speaker_actuator.f0;	
+
+----------- lane assistance flows ---------
+  camera_to_steering_wheel_actuator : end to end flow camera.f0 -> c17 -> lane_detection.f0 -> c18 -> steering_wheel_actuator.f0; 
+  
+  -------- collision avoidance flows -----------
+	
+  radar_sensor_to_steering_wheel_actuator: end to end flow radar_sensor.f0 -> c19 -> collision_avoidance.f0 -> c20 -> 
+	steering_wheel_actuator.f0;
+	
+  radar_sensor_to_break_actuator: end to end flow radar_sensor.f0 -> c19 -> collision_avoidance.f1 -> c21 -> brake_actuator.f0;
+	
+  radar_sensor_to_speaker_actuator: end to end flow radar_sensor.f0 -> c19 -> collision_avoidance.f2 -> c22 -> speaker_actuator.f0; 
+
 	
 end integration.functional;
 
