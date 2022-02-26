@@ -184,15 +184,16 @@ connections
 		
 	-- All software functions run on the 1 CPU --
 	actual_processor_binding => (reference (cpu)) applies to
-			power_steering, anti_lock_braking, adaptive_cruise_control;
+			power_steering, anti_lock_braking, adaptive_cruise_control, 
+			collision_avoidance, lane_detection;
 			
 	-- All connections from Sensors to Software goes through can bus 1 --
 	actual_connection_binding => (reference (can1)) applies to
-			c00, c01, c03, c04, c07;
+			c00, c01, c03, c04, c07,c17, c19;
 			
 	-- All connections from Software to Actuators goes through can bus 2 --
 	actual_connection_binding => (reference (can2)) applies to
-			c02, c05, c06, c08;
+			c02, c05, c06, c08, c18, c20, c21, c22;
 
 end integration.variation2;
 
