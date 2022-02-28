@@ -11,7 +11,8 @@ with Lab2::Software::anti_lock_braking;
 with Lab2::Software::car_alarm;
 with Lab2::Software::parking_assistance;
 with Lab2::software::lane_detection;
-with Lab2::software::collision_avoidance; --ADD this to github
+with Lab2::software::collision_avoidance;
+with Lab2::software::crash_evaluation;
 with Lab2::platform;
 
 	
@@ -87,10 +88,10 @@ system implementation integration.functional
     c18 : port lane_detection.steering_wheel_cmd               -> steering_wheel_actuator.cmd;
     
     ------ collision avoidance -------
-    c19 : port radar_sensor.object_distance		       -> collision_avoidance.radar_object_distance;
+    c19 : port radar_sensor.obstacle_distance		       	-> collision_avoidance.radar_object_distance;
     c20 : port collision_avoidance.steering_wheel_cmd          -> steering_wheel_actuator.cmd;
     c21 : port collision_avoidance.brake_cmd                   -> brake_actuator.cmd;
-    c22 : port collision_avoidance.speaker_cmd                 -> speaker.cmd;
+    c22 : port collision_avoidance.speaker_cmd                 -> speaker_actuator.cmd;
 
 
 	flows
