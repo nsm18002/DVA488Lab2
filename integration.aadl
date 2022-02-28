@@ -33,6 +33,8 @@ system implementation integration.functional
 	motion_sensor				: device Lab2::devices::motion_sensor;
 	ultrasonic_sensor			: device Lab2::devices::ultrasonic_sensor;
 	camera	                                : device Lab2::devices::camera;
+	accelerometer_variable	    		: device Lab2::devices::accelerometer;
+
 
 
 	-- functions
@@ -43,7 +45,7 @@ system implementation integration.functional
     parking_assistance 			: process Lab2::software::parking_assistance::parking_assistance.i;
      lane_detection		  	    : process Lab2::software::lane_detection::lane_detection.i;
     collision_avoidance         : process Lab2::software::collision_avoidance::collision_avoidance.i; 
-
+crash_evaluation         	: process Lab2::software::crash_evaluation::crash_evaluation.i;
     
 
 	-- output devices
@@ -52,7 +54,7 @@ system implementation integration.functional
 	throttle_actuator     		: device Lab2::devices::throttle_actuator;
 	car_siren     				: device Lab2::devices::car_siren;
 	speaker_actuator     		: device Lab2::devices::speaker_actuator;
-
+	airbag			     		: device Lab2::devices::airbag;
 
 	connections
 	-- power steering connections --
@@ -92,6 +94,11 @@ system implementation integration.functional
     c20 : port collision_avoidance.steering_wheel_cmd          -> steering_wheel_actuator.cmd;
     c21 : port collision_avoidance.brake_cmd                   -> brake_actuator.cmd;
     c22 : port collision_avoidance.speaker_cmd                 -> speaker_actuator.cmd;
+    
+    -- crash evaluation ----------
+    
+    c23 : port accelerometer_variable.accelerometer_value		-> crash_evaluation.accelerometer_variable;
+    c24 : port crash_evaluation.airbag_command               	-> airbag.cmd;
 
 
 	flows
@@ -147,6 +154,9 @@ system implementation integration.functional
   radar_sensor_to_break_actuator: end to end flow radar_sensor.f0 -> c19 -> collision_avoidance.f1 -> c21 -> brake_actuator.f0;
 	
   radar_sensor_to_speaker_actuator: end to end flow radar_sensor.f0 -> c19 -> collision_avoidance.f2 -> c22 -> speaker_actuator.f0; 
+  
+   ----------- crash_evaluation ---------
+  accelerometer_to_airbag : end to end flow accelerometer_variable.f0 -> c23 -> crash_evaluation.f0 -> c24 -> airbag.f0; 
 
 	
 end integration.functional;
@@ -190,11 +200,11 @@ connections
 			
 	-- All connections from Sensors to Software goes through can bus 1 --
 	actual_connection_binding => (reference (can1)) applies to
-			c00, c01, c03, c04, c07, c09, c10, c11, c12, c14, c17, c19;
+			c00, c01, c03, c04, c07, c09, c10, c11, c12, c14, c17, c19, c23;
 			
 	-- All connections from Software to Actuators goes through can bus 2 --
 	actual_connection_binding => (reference (can2)) applies to
-			c02, c05, c06, c08, c13, c15, c16, c18, c20, c21, c22;
+			c02, c05, c06, c08, c13, c15, c16, c18, c20, c21, c22, c24;
 
 end integration.variation2;
 
