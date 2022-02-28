@@ -196,7 +196,7 @@ connections
 	-- All software functions run on the 1 CPU --
 	actual_processor_binding => (reference (cpu)) applies to
 			power_steering, anti_lock_braking, adaptive_cruise_control, 
-			collision_avoidance, lane_detection;
+			collision_avoidance, lane_detection, crash_evaluation, car_alarm, parking_assistance;
 			
 	-- All connections from Sensors to Software goes through can bus 1 --
 	actual_connection_binding => (reference (can1)) applies to
